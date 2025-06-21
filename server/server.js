@@ -37,8 +37,14 @@ io.on("connection",(socket)=>{
 })
 
 //Middleware setup
-app.use(express.json({limit:"4mb"}));
-app.use(cors());
+app.use(cors({
+    origin: "https://chat-app-self-xi-13.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  }));
+  app.options("*", cors());
+  app.use(express.json({ limit: "4mb" }));
+  
 
 app.use("/api/status",(req,res)=>res.send("server is live"));
 app.use("/api/auth",userRouter);
